@@ -4,6 +4,6 @@ import org.txtanon.entities.Car;
 
 public interface ParkService {
 
-    Car addCarToPark(Car car);
+    Car addCarToPark(Car car,int floor);
 
 }
