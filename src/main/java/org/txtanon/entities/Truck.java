@@ -1,10 +1,12 @@
 package org.txtanon.entities;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@Builder
 public class Truck extends Car{
 
     private int truckSize;
