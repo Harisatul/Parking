@@ -1,14 +1,13 @@
 package org.txtanon.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Sedan extends Car {
     private int sedanSize;
 
