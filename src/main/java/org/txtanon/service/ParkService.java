@@ -1,9 +1,10 @@
 package org.txtanon.service;
 
 import org.txtanon.entities.Car;
+import org.txtanon.entities.Sedan;
 
 public interface ParkService {
 
-    Car addCarToPark(Car car,int floor);
+    Car addCarToPark(Sedan car, int floor) throws Exception;
 
 }
