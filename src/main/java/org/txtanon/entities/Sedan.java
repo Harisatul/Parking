@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Sedan extends Car {
-    private int sedanSize;
+    private int sedanSize = 1;
 
     public Sedan(String numberPlate,String color,
                  String manufacture, String year) {
         super(numberPlate, color, manufacture, year);
-        this.sedanSize = 1;
     }
 }

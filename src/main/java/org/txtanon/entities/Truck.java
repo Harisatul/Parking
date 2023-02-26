@@ -7,12 +7,11 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class Truck extends Car{
 
-    private int truckSize;
+    private int truckSize = 2;
 
     public Truck(String numberPlate,String color,
                  String manufacture, String year) {
         super(numberPlate, color, manufacture, year);
-        this.truckSize = 2;
     }
 
 }
