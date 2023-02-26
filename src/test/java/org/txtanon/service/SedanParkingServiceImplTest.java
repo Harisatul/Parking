@@ -75,7 +75,7 @@ class SedanParkingServiceImplTest {
 
         Exception exception = Assertions.assertThrows(Exception.class, () -> service.addCarToPark(sedan, 2));
         System.out.println(exception.getMessage());
-        Assertions.assertEquals("Sedan Service : park is full", exception.getMessage());
+        Assertions.assertEquals("park is full", exception.getMessage());
 
 
         verify(parkRepository, times(1)).findCarByPlateNumber(any(String.class));
@@ -83,4 +83,36 @@ class SedanParkingServiceImplTest {
                 any(Integer.class), any(Integer.class));
     }
 
+    @Test
+    void whenAddSedanToParkHasOccupied() {
+        Sedan sedan = new Sedan();
+        sedan.setNumberPlate("BG 671 AS");
+        sedan.setColor("Blue");
+
+        Sedan sedan2 = new Sedan();
+        sedan2.setNumberPlate("BG 111 FS");
+        sedan2.setColor("Blue");
+
+        // park is full
+        Car[] carList = new Car[5];
+        carList[0] = sedan2;
+        carList[1] = sedan;
+        carList[2] = sedan;
+        carList[3] = sedan;
+        carList[4] = sedan;
+
+        when(parkRepository.findCarByPlateNumber("BG 671 AS")).thenReturn(Optional.of(sedan));
+
+        Exception exception = Assertions.assertThrows(Exception.class, () -> service.addCarToPark(sedan, 2));
+        System.out.println(exception.getMessage());
+        String format = String.format(
+                "Sedan with plate number %s has already in park", sedan.getNumberPlate());
+        System.out.println(format);
+        Assertions.assertEquals(format, exception.getMessage());
+
+
+        verify(parkRepository, times(1)).findCarByPlateNumber(any(String.class));
+        verify(parkRepository, times(0)).save(any(Sedan.class),
+                any(Integer.class), any(Integer.class));
+    }
 }
