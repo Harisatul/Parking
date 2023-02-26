@@ -17,20 +17,22 @@ public class SedanParkingServiceImpl implements ParkService {
 
     @Override
     public Car addCarToPark(Sedan car, int floor) throws Exception {
-        Boolean carByPlateNumber = parkRepository.findCarByPlateNumber(car.getNumberPlate()).isPresent();
+        boolean carByPlateNumber = parkRepository.findCarByPlateNumber(car.getNumberPlate()).isPresent();
         if (carByPlateNumber) {
             log.error("Sedan with plate number {} has already in park",  car.getNumberPlate());
             throw new Exception(String.format(
-                    "Sedan Service : Sedan with plate number %s has already in park", car.getNumberPlate()));
+                    "Sedan with plate number %s has already in park", car.getNumberPlate()));
         }
         Car[] parkByFloor = parkRepository.getParkByFloor(floor);
         int length = parkByFloor.length;
         for (int i = 0; i < length; i++) {
             if (parkByFloor[i] == null) {
+                log.info("Sedan with plate number {} sucessfully added to park", car.getNumberPlate());
                 return parkRepository.save(car, floor, i);
             }
         }
-        throw new Exception("Sedan Service : park is full");
+        log.error("park is full");
+        throw new Exception("park is full");
     }
 
 }
