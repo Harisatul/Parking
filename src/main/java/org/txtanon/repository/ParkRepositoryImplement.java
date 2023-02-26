@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ParkRepositoryImplement implements ParkRepository {
 
-    List<Car[]> park;
+    private List<Car[]> park;
 
     public ParkRepositoryImplement(int floor) {
         this.park = new ArrayList<>(floor);
