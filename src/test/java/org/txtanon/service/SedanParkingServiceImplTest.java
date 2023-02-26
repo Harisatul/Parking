@@ -19,12 +19,12 @@ import static org.mockito.BDDMockito.*;
 class SedanParkingServiceImplTest {
 
     @Mock
-    ParkRepository parkRepository;
+    ParkRepository<Sedan, String> parkRepository;
     @InjectMocks
     SedanParkingServiceImpl service;
 
     @Test
-    void addSedanToPark() throws Exception {
+    void addSedanToParkSuccess() throws Exception {
         Sedan sedan = new Sedan();
         sedan.setNumberPlate("BG 671 AS");
         sedan.setColor("Blue");
@@ -39,7 +39,7 @@ class SedanParkingServiceImplTest {
 
         when(parkRepository.findCarByPlateNumber("BG 671 AS")).thenReturn(Optional.empty());
         when(parkRepository.getParkByFloor(any(Integer.class))).thenReturn(carList);
-        when(parkRepository.save(any(Car.class), any(Integer.class), any(Integer.class))).thenReturn(sedan);
+        when(parkRepository.save(any(Sedan.class), any(Integer.class), any(Integer.class))).thenReturn(sedan);
 
         Car savedCar = service.addCarToPark(sedan, 2);
 
@@ -48,7 +48,7 @@ class SedanParkingServiceImplTest {
         Assertions.assertEquals(sedan.getNumberPlate(), savedCar.getNumberPlate());
 
         verify(parkRepository, times(1)).findCarByPlateNumber(any(String.class));
-        verify(parkRepository, times(1)).save(any(Car.class),
+        verify(parkRepository, times(1)).save(any(Sedan.class),
                 any(Integer.class), any(Integer.class));
     }
 
