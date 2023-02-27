@@ -137,4 +137,28 @@ class SedanParkingServiceImplTest {
 
         verify(parkRepository, times(1)).delete(any(String.class));
     }
+
+    @Test
+    void whenDeleteSedanFromParkFail() {
+        Sedan sedan = new Sedan();
+        sedan.setNumberPlate("BG 671 AS");
+        sedan.setColor("Blue");
+
+        Sedan sedan2 = new Sedan();
+        sedan2.setNumberPlate("BG 111 FS");
+        sedan2.setColor("Blue");
+
+
+        when(parkRepository.delete("BG 671 AS")).thenReturn(Boolean.FALSE);
+
+
+        Exception exception = Assertions.assertThrows(Exception.class, () -> service.deleteCarFromPark("BG 671 AS"));
+        String exFormat = String.format(
+                "Sedan with plate number %s not found", sedan.getNumberPlate());
+        Assertions.assertEquals(exFormat, exception.getMessage());
+
+
+        verify(parkRepository, times(1)).delete(any(String.class));
+    }
+
 }
