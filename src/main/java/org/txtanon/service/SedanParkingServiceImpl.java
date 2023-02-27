@@ -16,10 +16,10 @@ public class SedanParkingServiceImpl implements ParkService {
     }
 
     @Override
-    public Car addCarToPark(Sedan car, int floor) throws Exception {
+    public Car addCarToPark(Car car, int floor) throws Exception {
         boolean carByPlateNumber = parkRepository.findCarByPlateNumber(car.getNumberPlate()).isPresent();
         if (carByPlateNumber) {
-            log.error("Sedan with plate number {} has already in park",  car.getNumberPlate());
+            log.error("Sedan with plate number {} has already in park", car.getNumberPlate());
             throw new Exception(String.format(
                     "Sedan with plate number %s has already in park", car.getNumberPlate()));
         }
@@ -28,11 +28,22 @@ public class SedanParkingServiceImpl implements ParkService {
         for (int i = 0; i < length; i++) {
             if (parkByFloor[i] == null) {
                 log.info("Sedan with plate number {} sucessfully added to park", car.getNumberPlate());
-                return parkRepository.save(car, floor, i);
+                return parkRepository.save((Sedan) car, floor, i);
             }
         }
         log.error("park is full");
         throw new Exception("park is full");
     }
 
+    @Override
+    public Boolean deleteCarFromPark(String platNumber) throws Exception {
+        if (parkRepository.delete(platNumber)){
+            log.info("Sedan with plate number {} successfully out", platNumber);
+            return true;
+        }
+        log.error("Sedan with plate number {} not found", platNumber);
+        String exFormat = String.format(
+                "Sedan with plate number %s not found", platNumber);
+        throw new Exception(exFormat);
+    }
 }
