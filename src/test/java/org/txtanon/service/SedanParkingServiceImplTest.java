@@ -24,7 +24,7 @@ class SedanParkingServiceImplTest {
     SedanParkingServiceImpl service;
 
     @Test
-    void whenAddSedanToParkSuccess() throws Exception {
+    void whenAddSedanToParkSuccess() throws Exception   {
         Sedan sedan = new Sedan();
         sedan.setNumberPlate("BG 671 AS");
         sedan.setColor("Blue");
@@ -114,5 +114,27 @@ class SedanParkingServiceImplTest {
         verify(parkRepository, times(1)).findCarByPlateNumber(any(String.class));
         verify(parkRepository, times(0)).save(any(Sedan.class),
                 any(Integer.class), any(Integer.class));
+    }
+
+    @Test
+    void whenDeleteSedanFromParkSuccess() throws Exception   {
+        Sedan sedan = new Sedan();
+        sedan.setNumberPlate("BG 671 AS");
+        sedan.setColor("Blue");
+
+        Sedan sedan2 = new Sedan();
+        sedan2.setNumberPlate("BG 111 FS");
+        sedan2.setColor("Blue");
+
+
+        when(parkRepository.delete("BG 671 AS")).thenReturn(Boolean.TRUE);
+
+
+        Boolean aBoolean = service.deleteCarFromPark("BG 671 AS");
+
+        Assertions.assertEquals(Boolean.TRUE, aBoolean);
+
+
+        verify(parkRepository, times(1)).delete(any(String.class));
     }
 }
