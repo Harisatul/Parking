@@ -27,8 +27,16 @@ public class ParkRepositoryImplement implements ParkRepository {
     }
 
     @Override
-    public void delete(String s) {
-
+    public Boolean delete(String platNumber) {
+        for (Car[] floor : park) {
+            for (int i = 0; i < floor.length; i++) {
+                if (floor[i].getNumberPlate().equals(platNumber)) {
+                    floor[i] = null;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
