@@ -85,6 +85,38 @@ class TruckParkServiceImplTest {
 
 
     @Test
-    void deleteCarFromPark() {
+    void whenDeleteTruckFromParkSuccess() throws Exception {
+
+        when(parkRepository.delete("BG 671 AS")).thenReturn(Boolean.TRUE);
+
+        Boolean aBoolean = service.deleteCarFromPark("BG 671 AS");
+
+        Assertions.assertEquals(Boolean.TRUE, aBoolean);
+
+        verify(parkRepository, times(2)).delete(any(String.class));
+    }
+
+    @Test
+    void whenDeleteTruckFromParkFail() throws Exception {
+
+        Truck truck = new Truck();
+        truck.setNumberPlate("BG 671 AS");
+        truck.setColor("Blue");
+
+        Truck sedan2 = new Truck();
+        sedan2.setNumberPlate("BG 111 FS");
+        sedan2.setColor("Blue");
+
+
+        when(parkRepository.delete("BG 671 AS")).thenReturn(Boolean.FALSE);
+
+
+        Exception exception = Assertions.assertThrows(Exception.class, () -> service.deleteCarFromPark("BG 671 AS"));
+        String exFormat = String.format(
+                "Truck with plate number %s not found", truck.getNumberPlate());
+        Assertions.assertEquals(exFormat, exception.getMessage());
+
+
+        verify(parkRepository, times(2)).delete(any(String.class));
     }
 }
