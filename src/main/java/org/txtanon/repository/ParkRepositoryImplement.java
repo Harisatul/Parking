@@ -19,8 +19,7 @@ public class ParkRepositoryImplement implements ParkRepository {
 
     @Override
     public Car save(Car car, int floor, int index) {
-        if (floor == 1)
-            floor = 0;
+        floor -= 1;
         Car[] cars = park.get(floor);
         cars[index] = car;
         return car;
@@ -57,8 +56,7 @@ public class ParkRepositoryImplement implements ParkRepository {
 
     @Override
     public Car[] getParkByFloor(int floor) {
-        if (floor == 1)
-            floor = 0;
+        floor -= 1;
         return park.get(floor);
     }
 }
