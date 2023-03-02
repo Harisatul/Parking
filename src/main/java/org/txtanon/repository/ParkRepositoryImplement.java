@@ -30,6 +30,8 @@ public class ParkRepositoryImplement implements ParkRepository {
     public Boolean delete(String platNumber) {
         for (Car[] floor : park) {
             for (int i = 0; i < floor.length; i++) {
+                if (floor[i] == null)
+                    continue;
                 if (floor[i].getNumberPlate().equals(platNumber)) {
                     floor[i] = null;
                     return true;
@@ -39,10 +41,13 @@ public class ParkRepositoryImplement implements ParkRepository {
         return false;
     }
 
+
     @Override
     public Optional<Car> findCarByPlateNumber(String numberPLate) {
         for (Car[] floor: park) {
             for (int i = 0; i < floor.length; i++) {
+                if (floor[i] == null)
+                    continue;
                 if (floor[i].getNumberPlate().equals(numberPLate))
                     return Optional.of(floor[i]);
             }
