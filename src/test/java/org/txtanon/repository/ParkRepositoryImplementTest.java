@@ -37,4 +37,16 @@ class ParkRepositoryImplementTest {
         Assertions.assertEquals(save.getNumberPlate(), "BG 671 AS");
         Assertions.assertEquals(Boolean.TRUE, delete);
     }
+
+    @Test
+    void findCarByPlateNumber() {
+        Sedan sedan = new Sedan();
+        sedan.setNumberPlate("BG 671 AS");
+        sedan.setColor("Blue");
+        Car carSaved = parkRepository.save(sedan, 1, 1);
+        Car carRetrieved = parkRepository.findCarByPlateNumber("BG 671 AS").get();
+        System.out.println("carRetrieved plate Number : "+carRetrieved.getNumberPlate());
+        System.out.println("carSaved plate Number : " +carSaved.getNumberPlate());
+        Assertions.assertEquals(carSaved.getNumberPlate(), "BG 671 AS");
+    }
 }
