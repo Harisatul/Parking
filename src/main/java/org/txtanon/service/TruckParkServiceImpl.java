@@ -2,7 +2,6 @@ package org.txtanon.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.txtanon.entities.Car;
-import org.txtanon.entities.Sedan;
 import org.txtanon.entities.Truck;
 import org.txtanon.repository.ParkRepository;
 
@@ -38,7 +37,17 @@ public class TruckParkServiceImpl implements ParkService {
     }
 
     @Override
-    public Boolean deleteCarFromPark(String platNumber) throws Exception {
-        return null;
+    public Boolean deleteCarFromPark(String platNumber) throws Exception  {
+        boolean flag = false;
+        for (int i = 0; i < 2; i++) {
+            Boolean delete = parkRepository.delete(platNumber);
+            flag = delete;
+        }
+        if (flag)
+            return flag;
+        log.error("Truck with plate number {} not found", platNumber);
+        String exFormat = String.format(
+                "Truck with plate number %s not found", platNumber);
+        throw new Exception(exFormat);
     }
 }
