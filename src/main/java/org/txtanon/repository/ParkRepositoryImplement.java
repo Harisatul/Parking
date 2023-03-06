@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ParkRepositoryImplement implements ParkRepository {
 
     /**
-     * I think more convinient to use List of array implementation. since we have flexibility
+     * I think more convenient to use List of array implementation. since we have flexibility
      * to access index (position of car)
     **/
     private List<Car[]> park;
