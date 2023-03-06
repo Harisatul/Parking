@@ -51,7 +51,7 @@ public class IntegrationTest {
         * [null, null, null, null, null] == floor 1
         * [Sedan, Truck, Truck, Sedan, Sedan] == floor 2
         * */
-
+        Assertions.assertEquals(sedan.getNumberPlate(), savedSedan.getNumberPlate());
 
         System.out.println(savedSedan.getNumberPlate());
         System.out.println(savedTruck.getNumberPlate());
@@ -231,5 +231,47 @@ public class IntegrationTest {
         Assertions.assertNull(parkByFloor[1]);
         Assertions.assertNull(parkByFloor[2]);
     }
+
+    @Test
+    void integrationWhenRemoveSedanFailed() throws Exception {
+        Sedan sedan = new Sedan();
+        sedan.setNumberPlate("BG 223 SS");
+
+        Truck truck = new Truck();
+        truck.setNumberPlate("BG 543 S");
+
+        // Added To Floor 2
+        Car savedSedan = sedanParkingService.addCarToPark(sedan, 2);
+        Car savedTruck = truckParkService.addCarToPark(truck, 2);
+
+        Sedan sedan2 = new Sedan();
+        sedan2.setNumberPlate("B 532 SD");
+
+        Sedan sedan3 = new Sedan();
+        sedan3.setNumberPlate("B 7411 RT");
+
+        // Added To Floor 2
+        Car savedSedan2 = sedanParkingService.addCarToPark(sedan2, 2);
+        Car savedSedan3 = sedanParkingService.addCarToPark(sedan3, 2);
+
+        /*
+         * so, now on floor two. The parking lot has occupied
+         * [null, null, null, null, null] == floor 1
+         * [Sedan, Truck, Truck, Sedan, Sedan] == floor 2
+         * */
+
+        /*
+        Now, we wanna remove sedan with plate number "B 763 FG" from parking lot.
+        Which is nothing car with that plate number on there.
+        */
+        Exception exception = Assertions.assertThrows(Exception.class, () ->
+                sedanParkingService.deleteCarFromPark("B 763 FG"));
+        String exFormat = String.format(
+                "Sedan with plate number %s not found", "B 763 FG");
+        Assertions.assertEquals(exFormat, exception.getMessage());
+
+
+    }
+
 
 }
