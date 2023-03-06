@@ -6,6 +6,7 @@ import lombok.*;
 /**
  * Represents a Truck which is a subclass of Car with an additional attribute for the truck size.
  * @see Car
+ * @author haris
  */
 @Data
 @NoArgsConstructor

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  * Represents a Sedan car which is a subclass of Car with an additional attribute for the sedan size.
  * @see Car
+ * @author haris
  */
 
 @Data
