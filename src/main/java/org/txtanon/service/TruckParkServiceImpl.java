@@ -28,7 +28,7 @@ public class TruckParkServiceImpl implements ParkService {
      * The idea is, iterate through floor and specified floor to find 2-index empty space.
      *
      * example 1 = {sedan, null, null, sedan, sedan} ==> floor2
-     *            when iterate over array, index- 1 is null. Then we also check next index[i+1].
+     *            when iterate over array, index 1 is null. Then we also check next index[i+1].
      *            if the next index is also empty, we can assign new Truck Object to the parking lot
      *            on that floor at index i and index i+1. so basically we put same truck object to two index respectively.
      * example 2 = {sedan, null, sedan, sedan, null} ==> floor2
@@ -38,7 +38,7 @@ public class TruckParkServiceImpl implements ParkService {
      *            respectively.
      *
      * if empty space was found
-     * we assign that space with new Object of Sedan with calling parkRepository.save() and passing required value.
+     * we assign that space with new Object of Truck with calling parkRepository.save() and passing required value.
      * There is check if the parking lot has already same Car that we want to add.
      * Then, check if park is full. return exception
      *
@@ -74,7 +74,7 @@ public class TruckParkServiceImpl implements ParkService {
     /**
      * Removes a truck from the parking lot with the specified number plate.
      *
-     * Since there are two object of truck (cause add truck functonality). We can iterate
+     * Since there are two object of truck (cause add truck functionality). We can iterate
      * two times and call parkRepository.delete(platNumber) twice. Return true if operation of delete success.
      * Otherwise, throw exception cause there are nothing Truck object with given platNumber
      *
