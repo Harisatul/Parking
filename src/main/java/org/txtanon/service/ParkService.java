@@ -8,6 +8,9 @@ import org.txtanon.entities.Car;
 
  It allows adding a car to a specific floor of the parking lot and deleting a car from the parking lot.
 
+ {@link SedanParkingServiceImpl}
+ {@link TruckParkServiceImpl}
+
  @author haris
   */
 public interface ParkService {
