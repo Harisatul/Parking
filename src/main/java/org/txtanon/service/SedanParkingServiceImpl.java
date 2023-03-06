@@ -27,8 +27,9 @@ public class SedanParkingServiceImpl implements ParkService {
     /**
      * Add Sedan car to the park
      * The idea is, iterate through floor and specified floor to find empty space. if empty space was found
-     * we assign that space with new Object of Sedan. There is check if the parking lot has already
-     * same Car that we want to add. Then, check if park is full. return exception
+     * we assign that space with new Object of Sedan with calling parkRepository.save() and passing required value.
+     * There is check if the parking lot has already same Car that we want to add.
+     * Then, check if park is full. return exception
      *
      * @param car Sedan car to add
      * @param floor floor in which to park the car
