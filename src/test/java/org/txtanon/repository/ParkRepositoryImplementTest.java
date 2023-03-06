@@ -22,7 +22,7 @@ class ParkRepositoryImplementTest {
         sedan.setColor("Blue");
         sedan.setManufacture("Honda");
         sedan.setYear("2017");
-        Car save = parkRepository.save(sedan, 0, 1);
+        Car save = parkRepository.save(sedan, 1, 1);
         Assertions.assertEquals(sedan.getNumberPlate(), save.getNumberPlate());
     }
 
@@ -31,7 +31,7 @@ class ParkRepositoryImplementTest {
         Sedan sedan = new Sedan();
         sedan.setNumberPlate("BG 671 AS");
         sedan.setColor("Blue");
-        Car save = parkRepository.save(sedan, 0, 1);
+        Car save = parkRepository.save(sedan, 1, 1);
         Boolean delete = parkRepository.delete("BG 671 AS");
         System.out.println(delete);
         Assertions.assertEquals(save.getNumberPlate(), "BG 671 AS");
