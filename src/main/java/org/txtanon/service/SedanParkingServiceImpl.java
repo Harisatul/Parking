@@ -7,7 +7,7 @@ import org.txtanon.repository.ParkRepository;
 
 
 /**
- * Implementation of ParkService interface for Sedan cars.
+ * Implementation of {@link ParkService} for managing sedan parking function.
  * @author haris
  */
 @Slf4j
