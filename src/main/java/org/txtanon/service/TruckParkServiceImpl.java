@@ -43,8 +43,10 @@ public class TruckParkServiceImpl implements ParkService {
             Boolean delete = parkRepository.delete(platNumber);
             flag = delete;
         }
-        if (flag)
+        if (flag){
+            log.info("Truck with plate number {} has removed", platNumber);
             return flag;
+        }
         log.error("Truck with plate number {} not found", platNumber);
         String exFormat = String.format(
                 "Truck with plate number %s not found", platNumber);
